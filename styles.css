@@ -1,0 +1,163 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #ff9ecb 0%, #c084fc 50%, #a78bfa 100%);
+  color: white;
+  min-height: 100svh;
+  overflow: hidden;
+  text-align: center;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  touch-action: manipulation; /* better touch response */
+}
+
+.page {
+  display: none;
+  min-height: 100svh;
+  width: 100%;
+  padding: 16px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.7s ease forwards;
+}
+
+.active {
+  display: flex;
+}
+
+h1, h2 {
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 12px;
+  text-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  line-height: 1.1;
+}
+
+h1 {
+  font-size: clamp(1.8rem, 6.5vw, 3.2rem);
+}
+
+h2 {
+  font-size: clamp(1.4rem, 5vw, 2.2rem);
+}
+
+p {
+  margin-bottom: 16px;
+  font-size: clamp(0.95rem, 3.2vw, 1.15rem);
+  max-width: 90%;
+  line-height: 1.45;
+}
+
+button {
+  background: rgba(255,255,255,0.97);
+  color: #e91e63;
+  border: none;
+  padding: 16px 28px;           /* bigger touch target */
+  border-radius: 999px;
+  font-size: clamp(1rem, 3.5vw, 1.15rem);
+  font-weight: 600;
+  margin: 8px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.18);
+  width: min(280px, 92%);
+  min-height: 56px;              /* minimum touch target size */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:active {
+  transform: scale(0.96);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.button-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-top: 8px;
+}
+
+video {
+  width: 100%;
+  max-width: 94%;
+  max-height: 38vh;
+  border-radius: 16px;
+  margin: 16px 0;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  background: #000;
+  object-fit: cover;
+}
+
+/* On very small screens, make video smaller to give more space to text/buttons */
+@media (max-height: 600px) {
+  video {
+    max-height: 28vh;
+    margin: 10px 0;
+  }
+  
+  h1 { font-size: clamp(1.6rem, 6vw, 2.4rem); }
+  h2 { font-size: clamp(1.3rem, 5vw, 1.9rem); }
+  p  { font-size: clamp(0.9rem, 3vw, 1.05rem); }
+  
+  button {
+    padding: 14px 24px;
+    font-size: clamp(0.95rem, 3.2vw, 1.05rem);
+  }
+}
+
+/* Floating hearts — reduce density on mobile */
+.hearts {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.heart {
+  position: absolute;
+  bottom: -10%;
+  animation: floatUp 8s linear forwards;
+}
+
+@keyframes floatUp {
+  to {
+    transform: translateY(-110dvh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Reduce heart frequency on small screens */
+@media (max-width: 480px) {
+  .hearts { opacity: 0.7; }
+  /* You can also reduce the setInterval frequency in JS if needed */
+}
+
+#confetti {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
