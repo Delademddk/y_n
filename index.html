@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Be My Valentine 💘</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -15,17 +17,17 @@
   <!-- PAGE 1 -->
   <div class="page active" id="page1">
     <h2>Hey you… I’ve been wanting to ask you something 💭</h2>
-    <button onclick="startExperience()">Okay… tell me 🫶</button>
+    <button id="startButton">Okay… tell me 🫶</button>
   </div>
 
   <!-- PAGE 2 -->
   <div class="page" id="page2">
     <h1>Will you be my Valentine? 💖</h1>
-    <video id="reactionVideo" src="neutral.mp4" playsinline muted loop></video>
+    <video id="reactionVideo" src="neutral.mp4" playsinline muted loop preload="metadata"></video>
     <p id="responseText">This is a very important life decision btw 😌</p>
     <div class="button-row">
-      <button onclick="sayYes()">YESSS 💖</button>
-      <button onclick="sayNo()">Nooo 💔</button>
+      <button id="yesButton">YESSS 💖</button>
+      <button id="noButton">Nooo 💔</button>
     </div>
   </div>
 
@@ -33,7 +35,7 @@
   <div class="page" id="page3">
     <h1>YOU SAID YES!!! 🎉💘</h1>
     <p>You just unlocked unlimited love, laughs, and late-night talks 💞</p>
-    <video id="yesVideoPlayer" playsinline autoplay muted loop></video>
+    <video id="yesVideoPlayer" playsinline autoplay muted loop preload="metadata"></video>
   </div>
 
   <script src="script.js"></script>
