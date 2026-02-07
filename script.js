@@ -16,6 +16,13 @@ const sadTexts = [
 
 const yesVideo = "yes.mp4";
 
+const isMobile = window.innerWidth <= 768 || 'ontouchstart' in window;
+
+function switchPage(fromId, toId) {
+  document.getElementById(fromId).classList.remove('active');
+  document.getElementById(toId).classList.add('active');
+}
+
 function playVideo(src) {
   const video = document.getElementById("reactionVideo");
   video.src = src;
@@ -37,10 +44,8 @@ function sayYes() {
   document.getElementById("responseText").innerText =
     `You just made me the happiest person ever 🥹💘`;
 
-  // Go to Page 3
   switchPage("page2", "page3");
 
-  // Play YES video
   const yesPlayer = document.getElementById("yesVideoPlayer");
   yesPlayer.src = yesVideo;
   yesPlayer.load();
@@ -48,7 +53,6 @@ function sayYes() {
 
   launchSimpleConfetti();
 
-  // WhatsApp message after ~4 seconds
   setTimeout(() => {
     const yourNumber = "233595738686"; 
     const waMessage = encodeURIComponent(
@@ -70,28 +74,20 @@ function sayNo() {
     playVideo("g1.mp4");
     document.getElementById("responseText").innerText =
       `Okay… I’ll stop asking now 💔 But you’ll always be special to me.`;
+
+    setTimeout(() => {
+      const yourNumber = "233595738686"; 
+      const waMessage = encodeURIComponent(
+        "I'm sorry, but it's a no... 💔" 
+      );
+      window.open(
+        `https://wa.me/${yourNumber}?text=${waMessage}`,
+        "_blank"
+      );
+    }, 4000);
   }
 }
 
-function switchPage(from, to) {
-  document.getElementById(from).classList.remove("active");
-  document.getElementById(to).classList.add("active");
-}
-
-// Floating hearts
-setInterval(() => {
-  const heart = document.createElement("div");
-  heart.className = "heart";
-  heart.innerHTML = Math.random() > 0.5 ? "💖" : "🫶";
-  heart.style.left = Math.random() * 100 + "vw";
-  heart.style.fontSize = (16 + Math.random() * 22) + "px";
-  heart.style.animationDuration = (5 + Math.random() * 5) + "s";
-  heart.style.color = `hsl(${Math.random()*60 + 320}, 90%, 65%)`;
-  document.getElementById("hearts").appendChild(heart);
-  setTimeout(() => heart.remove(), 9000);
-}, 400);
-
-// Confetti
 function launchSimpleConfetti() {
   const canvas = document.getElementById("confetti");
   const ctx = canvas.getContext("2d");
@@ -133,20 +129,30 @@ function launchSimpleConfetti() {
   animate();
 }
 
-// Floating hearts – add this check
-const isMobile = window.innerWidth <= 768 || 'ontouchstart' in window;
+// Add event listeners
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('startButton').addEventListener('click', startExperience);
+  document.getElementById('yesButton').addEventListener('click', sayYes);
+  document.getElementById('noButton').addEventListener('click', sayNo);
 
-setInterval(() => {
-  // Create hearts less frequently on mobile
-  if (isMobile && Math.random() > 0.4) return; // ~60% less hearts
+  // Floating hearts
+  setInterval(() => {
+    if (isMobile && Math.random() > 0.4) return;
 
-  const heart = document.createElement("div");
-  heart.className = "heart";
-  heart.innerHTML = Math.random() > 0.5 ? "💖" : "🫶";
-  heart.style.left = Math.random() * 100 + "vw";
-  heart.style.fontSize = (14 + Math.random() * 20) + "px";
-  heart.style.animationDuration = (6 + Math.random() * 6) + "s";
-  heart.style.color = `hsl(${Math.random()*60 + 320}, 90%, 65%)`;
-  document.getElementById("hearts").appendChild(heart);
-  setTimeout(() => heart.remove(), 10000);
-}, isMobile ? 800 : 400);   // slower interval on mobile
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = Math.random() > 0.5 ? "💖" : "🫶";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (14 + Math.random() * 20) + "px";
+    heart.style.animationDuration = (6 + Math.random() * 6) + "s";
+    heart.style.color = `hsl(${Math.random()*60 + 320}, 90%, 65%)`;
+    document.getElementById("hearts").appendChild(heart);
+    setTimeout(() => heart.remove(), 10000);
+  }, isMobile ? 800 : 400);
+
+  // Handle resize for confetti canvas
+  window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
+});
