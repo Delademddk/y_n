@@ -62,7 +62,7 @@ function sayYes() {
       `https://wa.me/${yourNumber}?text=${waMessage}`,
       "_blank"
     );
-  }, 2800);
+  }, 1200);
 }
 
 function sayNo() {
@@ -84,7 +84,7 @@ function sayNo() {
         `https://wa.me/${yourNumber}?text=${waMessage}`,
         "_blank"
       );
-    }, 2800);
+    }, 1200);
   }
 }
 
@@ -156,4 +156,5 @@ document.addEventListener('DOMContentLoaded', () => {
     canvas.height = window.innerHeight;
   });
 });
+
 
